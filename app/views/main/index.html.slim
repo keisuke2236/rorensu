@@ -1,2 +1,5 @@
-h1 Main#index
-= @a.to_s
+h1 画像抽出するんご
+- @images.each do |image_url|
+  = image_tag image_url
+  
+= form_for @oem, :url => order_info_admin_oems_path do |f|

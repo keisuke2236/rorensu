@@ -2,7 +2,21 @@ require 'open-uri'
 require 'nokogiri'
 
 module Scrape
-  def scrape(url)
+  def title url
+    document = document_info url
+    return document.title
+  end
+
+  def images url
+    document = document_info url
+    images = Array.new
+    document.search("img").each do |img|
+     images << (img.attributes["src"].value)
+   end
+   return images
+  end
+
+  def document_info url
     url = "http://www.yahoo.co.jp/" if url.nil?
     charset = nil
     html = open(url) do |f|
@@ -10,8 +24,8 @@ module Scrape
       f.read # htmlを読み込んで変数htmlに渡す
     end
     # htmlをパース(解析)してオブジェクトを生成
-    doc = Nokogiri::HTML.parse(html, nil, charset)
-    return doc.title
+    return Nokogiri::HTML.parse(html, nil, charset)
   end
-  module_function :scrape
+
+  module_function :title, :images, :document_info
 end
