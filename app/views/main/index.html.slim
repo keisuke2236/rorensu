@@ -1,5 +1,8 @@
 h1 画像抽出するんご
+
+= form_tag search_path, :id => 'search'
+  = text_field_tag "word"
+  = submit_tag "画像検索", name: "search_word"
+
 - @images.each do |image_url|
   = image_tag image_url
-  
-= form_for @oem, :url => order_info_admin_oems_path do |f|
